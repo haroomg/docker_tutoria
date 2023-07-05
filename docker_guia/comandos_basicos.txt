@@ -1,0 +1,82 @@
+
+- pull: No permite descargar una images desdes docker hub
+es importante declarar la images junto con la version que
+queremos es este caso: "python:alpine" aun que las versiones 
+aqui se llaman etiquetas, si no declaramos la version que 
+queremos usar por defecto descargara un lastest o ultima version:
+
+    docker pull python:alpine
+
+
+- run: descargar una imagen desde docker hub, crea un contenedor
+apartir de esa imagen y enciende el contenedor. En caso de que la 
+imagen ya exista lo que hace es que crea el contenedor
+
+    docker run python:alpine
+
+run -d: ejecuta el contenedor en segundo plano sin que este ocupe
+la terminal ya que por defecto se va a quedar escuchando y mostrando los logs;
+
+    docker run -d python:alpine
+
+run -p: es importante definirle un puerto a nuestro contenedor asi que para eso usamos -p 4000:3000
+donde 4000 es el puerto que va a ser encontrado fuera del contenedor y 3000 es el puerto dentro del contenedor
+    
+    docker run -p 4000:3000 python:alpine
+
+run -dp: ejecuta el comtenedor en segundo plano y le asigna un puerto.
+
+    docker run -dp 4000:3000 python:alpine
+
+
+- images: para listar todas las imagenes que tenemos 
+decargadas podemos ejecutar:
+
+    docker images 
+
+
+- ps : para saber todos los comtenedores que estan activos usamos ps.
+
+    docker ps
+
+ps -a: para saber todos los contenedores que estan activos y los que no los estan
+osea que los liste a todos.
+
+    docker ps -a
+
+
+- start: enciende un contenedor.
+
+    docker start container_name
+
+
+- stop: apaga un contenedor.
+
+    docker stop container_name
+
+
+- log: sirve para listar todos los mensajes que ha emitido el contenedor:
+
+    docker log container_name
+
+log -f: se quedara escuchando y nos ira mostrando al instatnte los mensajes
+que va emitiendo el contenedor: 
+
+    docker log -f container_name
+
+
+- exec -it: nos permite tener acceso a la terminal de un contenedor
+y podremos ejecutar comandos de terminal:
+
+    docker exec -it container_name
+
+
+============================================================================================================
+- build:
+#una vez definido nuestro Dockerfile para crear una imagen de nuestro poryecto usamos el sigiente comando 
+
+    Docker build --t container_name .
+
+# este comando empezara a descargar la imagen en caso de que no la tengamos y creara una imagen  de nuestro proyecto
+usamos -t para definir el nombre del contenedor, al final del comando ponemos un (.) por que le estamos diciendo 
+que cree una imagen en el fichero que este parado. 

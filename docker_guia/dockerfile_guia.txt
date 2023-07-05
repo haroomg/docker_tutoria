@@ -1,0 +1,32 @@
+"""
+con el docker file nosotros podemos crear una imagen apartir de nuestro proyecto
+pero para hacer eso debemos trabajar en base a otra imagen.
+"""
+
+FROM python:alpine
+# usamos FROM para decir cual imagen de la docker hub vamos a usar
+es importante que le declaremos su etiqueta, ya que si no lo hacemos 
+por defecto nos traera la ultima lastest.
+
+
+WORKDIR /code
+# usamos WORKDIR para crear un directorio dentro de la imagen
+y apartir de ese directorio es que vamos a guardar nuestro proyecto
+
+
+COPY requirements.txt requirements.txt
+COPY . .
+# usamos copy para copiar el proyecto que tenemos y guardarlo en el directorio
+que acabamos de usar. Usamos (.) para decir que copie el directorio en que estamos 
+trabajando ahora y lo pegue en el directorio que acabamos de crear en la imagen en este caso 
+lo representamos con (.) y por eso el comando (COPY . .), es importante que el dockerfiel
+esta en la raiz de nuestro directorio, porque este copiara todo lo que este a su nivel
+
+RUN apk add --no-cache gcc musl-dev linux-headers
+RUN pip install -r requirements.txt
+# usamos run para poder ejecutar sentencias en el SO que estamos usando
+
+CMD ["flask", "run"]
+# CMD se usa para definir el comando por defecto que se ejecutará 
+cuando se inicie un contenedor a partir de la imagen creada a partir de ese archivo Dockerfile.
+este comando siempre va al final de nuestro Dockerfile
